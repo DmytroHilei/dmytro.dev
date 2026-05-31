@@ -19,7 +19,7 @@ import Layout from '../layouts/Layout.astro';
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
           </a>
-          <a href="mailto:gileydima@gmail.com" aria-label="Email">
+          <a href="mailto:dmytrohilei@gmail.com" aria-label="Email">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/>
               <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/>
@@ -30,7 +30,6 @@ import Layout from '../layouts/Layout.astro';
       <div class="header-text">
         <h1>Dmytro Hilei</h1>
         <p class="tagline">ML + HPC · TalTech, Tallinn</p>
-        <p class="now"><span class="now-label">now</span> WTA tiling via TMA in OpenCV · Estonian A1.1</p>
       </div>
     </header>
 
@@ -54,10 +53,10 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
           <p>
-            Optimizing OpenCV's Semi-Global Matching pipeline for NVIDIA Blackwell (sm_120, RTX 5060).
-            Profiled with Nsight Compute, fixed two correctness bugs, tried a handful of optimizations
-            that haven't moved the needle yet. Next: ping-pong tiling for the WTA kernel via TMA.
-            PR to opencv/opencv pending.
+            Optimizing OpenCV's Semi-Global Matching pipeline for NVIDIA Blackwell (sm_120, RTX 5060),
+            under a mentor. Profiled with Nsight Compute, fixed two correctness bugs, tried a handful
+            of optimizations that haven't moved the needle yet. Next: ping-pong tiling for the WTA
+            kernel via TMA. If the speedups hold up end-to-end, I'll upstream a PR to opencv/opencv.
           </p>
           <a class="proj-link" href="https://github.com/DmytroHilei/opencv" target="_blank" rel="noopener">github ↗</a>
         </li>
@@ -70,10 +69,12 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
           <p>
-            Rewrote an LSTM music generation model into a decoder-only Transformer trained on the
-            Maestro dataset with REMI tokenization. ~20M parameters (6 layers, 8 heads, 512 dim,
-            1024 context). Trained on H100 via vast.ai.
+            Rewrote an LSTM music generation model into a decoder-only Transformer (~20M params:
+            6 layers, 8 heads, 512 dim, 1024 context). Pretrained on Maestro and GiantMIDI-Piano
+            with REMI tokenization, then finetuned on a corpus of Ukrainian folk songs. Trained
+            on a rented RTX 5090 VM.
           </p>
+          <a class="proj-link" href="https://github.com/DmytroHilei/Music_generative_model" target="_blank" rel="noopener">github ↗</a>
         </li>
 
         <li>
@@ -92,6 +93,21 @@ import Layout from '../layouts/Layout.astro';
 
         <li>
           <div class="proj-header">
+            <span class="proj-name">Speech Recognition on Raspberry Pi 5</span>
+            <div class="proj-tags">
+              <span class="tag">ML / Edge</span>
+            </div>
+          </div>
+          <p>
+            Early on-device keyword recognizer running on a Pi 5. Roadmap: scale to a much larger
+            dataset, swap the front-end for a ViT operating on log-mel spectrograms, broaden the
+            command vocabulary, and finetune on my own voice.
+          </p>
+          <a class="proj-link" href="https://github.com/DmytroHilei/Speech_Recognition_on_rasberry_pi_5" target="_blank" rel="noopener">github ↗</a>
+        </li>
+
+        <li>
+          <div class="proj-header">
             <span class="proj-name">2D Heat & Wave Sim</span>
             <div class="proj-tags">
               <span class="tag">HPC / Sim</span>
@@ -99,9 +115,23 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <p>
             Stencil-based finite-difference simulations of 2D heat diffusion and wave propagation —
-            same kernel pattern, combined into one project. OpenMP cut a naive 840s baseline to
-            ~15s (cache-aware 4×4 tiling, single precision, contiguous arrays); a CUDA rewrite
-            drops it further to ~1.4s on an RTX 5060.
+            same kernel pattern, combined into one project. Hand-tuned C++/OpenMP (cache-aware 4×4
+            tiling, single precision, contiguous arrays) and a CUDA rewrite for RTX 5060,
+            benchmarked against a reference PyTorch implementation.
+          </p>
+          <table class="bench">
+            <thead>
+              <tr><th></th><th>OpenMP</th><th>CUDA</th><th>CUDA tiled</th><th>PyTorch</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">heat</th><td>15.43s</td><td>1.40s</td><td>2.10s</td><td>10.00s</td></tr>
+              <tr><th scope="row">wave</th><td>4.54s</td><td>0.40s</td><td>—</td><td>0.194s</td></tr>
+            </tbody>
+          </table>
+          <p class="bench-note">
+            Tiled heat regresses: heavy branching in the staging path defeats coalescing, and the
+            stencil doesn't really reward shared-memory tiling at this grid size. Would want
+            CUTE/CUTLASS to do it cleanly.
           </p>
           <a class="proj-link" href="https://github.com/DmytroHilei/2D_heat_diffusion_and_wave_propagation" target="_blank" rel="noopener">github ↗</a>
         </li>
@@ -122,9 +152,24 @@ import Layout from '../layouts/Layout.astro';
       </ul>
     </section>
 
-    <section class="inline-list">
-      <h2>stack</h2>
-      <p>C++ · CUDA · C · Python · PyTorch · NumPy · OpenMP · OpenCV · Matplotlib · LaTeX · Git</p>
+    <section class="skills">
+      <h2>skills</h2>
+      <dl>
+        <dt>spoken</dt>
+        <dd>Ukrainian (native) · English (fluent, IELTS 6.5) · Estonian (A1.1, studying)</dd>
+
+        <dt>languages</dt>
+        <dd>C++ · CUDA · C · Python</dd>
+
+        <dt>ml</dt>
+        <dd>transformers (decoder-only GPT, DETR) · RNNs · LSTMs · CNNs · ResNet · detection · OCR</dd>
+
+        <dt>hpc</dt>
+        <dd>OpenMP · CUDA · TMA · CUTLASS basics · classical CV kernel tuning</dd>
+
+        <dt>tools</dt>
+        <dd>PyTorch · NumPy · OpenCV · Matplotlib · Git · LaTeX</dd>
+      </dl>
     </section>
 
     <section class="timeline">
@@ -185,28 +230,23 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
     <section class="timeline">
-      <h2>involvement</h2>
+      <h2>volunteering</h2>
       <ul>
         <li>
           <span class="when">2018 —</span>
           <div class="what">
-            <strong>Plast</strong>
+            <strong><a href="https://plast.org.ua/" target="_blank" rel="noopener">Plast</a></strong>
             <span>Ukrainian national scouting organization, 7 years.</span>
           </div>
         </li>
         <li>
-          <span class="when">2023 —</span>
+          <span class="when">2025 —</span>
           <div class="what">
             <strong>Ukrainian Astronomy Olympiads</strong>
             <span>Jury member and lecturer (while still competing).</span>
           </div>
         </li>
       </ul>
-    </section>
-
-    <section class="inline-list">
-      <h2>languages</h2>
-      <p>Ukrainian (native) · English (fluent, IELTS 6.5) · Estonian (A1.1, studying)</p>
     </section>
 
   </main>
@@ -314,17 +354,12 @@ import Layout from '../layouts/Layout.astro';
 
   /* Section labels (mono lowercase) */
   h2 {
-    margin: 0 0 1rem;
+    margin: 0 0 1.15rem;
     font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: #888;
-    letter-spacing: 0;
-  }
-
-  h2::before {
-    content: '// ';
-    color: #c5c5c5;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #0a0a0a;
+    letter-spacing: -0.01em;
   }
 
   /* Timeline (education, awards) */
@@ -429,7 +464,7 @@ import Layout from '../layouts/Layout.astro';
 
   .proj-link {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.88rem;
     color: #6a6a6a;
     text-decoration-color: #d0d0d0;
     align-self: flex-start;
@@ -447,6 +482,66 @@ import Layout from '../layouts/Layout.astro';
     color: #3a3a3a;
     font-size: 0.9rem;
     font-family: var(--font-mono);
+  }
+
+  /* Skills (categorized) */
+  .skills dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 1.5rem;
+    row-gap: 0.55rem;
+    margin: 0;
+  }
+
+  .skills dt {
+    color: #888;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding-top: 0.1rem;
+  }
+
+  .skills dd {
+    margin: 0;
+    color: #3a3a3a;
+    font-size: 0.9rem;
+  }
+
+  /* Benchmark table inside a project */
+  .bench {
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-top: 0.15rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bench th, .bench td {
+    padding: 0.18rem 0.85rem 0.18rem 0;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .bench thead th {
+    color: #888;
+    border-bottom: 1px solid #ececec;
+    padding-bottom: 0.3rem;
+  }
+
+  .bench tbody th {
+    color: #0a0a0a;
+    font-weight: 600;
+  }
+
+  .bench tbody td {
+    color: #3a3a3a;
+  }
+
+  .bench-note {
+    margin: 0.5rem 0 0;
+    color: #6a6a6a;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    font-style: italic;
   }
 
   @media (max-width: 600px) {
