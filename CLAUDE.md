@@ -24,20 +24,18 @@ Standard Astro file-based routing:
 
 - `src/pages/` — each `.astro` file becomes a route; `index.astro` is the homepage
 - `src/layouts/` — `Layout.astro` wraps pages with the HTML shell (head, meta, global styles)
-- `src/components/` — reusable `.astro` components imported into pages
 - `public/` — static assets served as-is (favicons, etc.)
-- `src/assets/` — assets processed by Astro's image pipeline (imported in `.astro` files)
 
-Currently the site is the default Astro scaffold. The `Welcome.astro` component and its associated assets (`astro.svg`, `background.svg`) should be replaced when building out the real portfolio.
+The site is a single page: `src/pages/index.astro` holds all the markup and its scoped styles, `src/layouts/Layout.astro` holds the HTML shell and global styles. There are no components yet — add `src/components/` only if a real second page appears.
 
 ## Design direction
 
-Aesthetic target: **karpathy.ai** — minimal, text-first, no hero animations, feels handbuilt not templated.
+The page reads as a **document, close to `CV.pdf`** — minimal, text-first, feels handbuilt not templated.
 
-- Dark or near-white theme (not gray-gradient)
-- Typography does the work; no decorative elements
-- No card grids, no badge pills, no section headers like "My Projects"
-- Projects listed as clean lines with brief descriptions and links
-- No animations or transitions beyond the essential
+- Near-white theme; typography does the work, no decorative elements
+- Section headings with a hairline rule; entry titles bold on the left, date or stack right-aligned in mono
+- Tight `·` bullet lists under each entry, mirroring the CV
+- No card grids, no badge pills, no hero, no animations
+- Every factual claim that can be sourced links to its source (medals → official results, PRs → GitHub)
 
-All content (bio, projects, awards, links) is in `CONTEXT.md`.
+All content (bio, projects, awards, links) is in `CONTEXT.md`, which mirrors `CV.pdf`.

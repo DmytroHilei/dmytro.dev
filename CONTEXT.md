@@ -1,67 +1,116 @@
 # Portfolio Context — Dmytro Hilei
 
-## Who I am
-I am an integrated engineering student at Tallinn University of Technology (TalTech), originally from Lviv, Ukraine, currently living in Tallinn, Estonia. I work at the intersection of machine learning and high-performance computing — building and optimizing systems at the level where algorithms meet hardware.
+Source of truth for site content. Mirrors `CV.pdf` — when the CV changes, update this, then the site.
 
-My focus is on ML engineering with a systems/HPC angle: not just training models, but understanding and optimizing what happens underneath — CUDA kernels, memory hierarchies, parallelism.
+## Who I am
+High-performance computing and machine learning engineer and student. Interested in computer
+vision, generative language models, and C++/CUDA physical simulations and stencil parallel
+computing. Built projects with PyTorch, TensorFlow, OpenMP and CUDA; currently exploring Devito,
+CuPy, MSL, AMD HIP and tinygrad.
+
+Originally from Lviv, Ukraine; currently in Tallinn, Estonia.
 
 ## Education
-- **TalTech** — Integrated Engineering BSc, 2025–2028. GPA: 4.8/5 (semester 1), ~4.7/5 (semester 2, ongoing)
-- **Lviv Physics and Mathematics Lyceum** — Graduated 2025. Unweighted GPA: 10.8/12
-- **Lviv Polytechnic National University** — parallel enrollment planned, 2026–2030
+- **TalTech** — BSc Integrated Engineering, 2025–2028. GPA 4.8/5.0 (1st & 2nd semesters)
+- **Lviv Physics and Mathematics Lyceum** — graduated 2025, specialization in mathematics and
+  physics. Average grade 10.8/12
 
-## Awards
-- Silver Medal — IOAA (International Olympiad on Astronomy and Astrophysics), 2025
-- Bronze Medal — IOAA, 2024
-- Silver Medal — IOAA Junior (under-16 category), 2023
-- First-stage diplomas — All-Ukrainian Olympiads in Astronomy and in Astronomy & Astrophysics, 2024 and 2025
+## Projects (in CV order of importance)
 
-Three consecutive years of IOAA medals shows sustained depth, not a one-off result.
+### Open-source CUDA optimization — OpenCV `cudastereo` (StereoSGM)
+Mentored by an R&D engineer at SoftServe (mentor's affiliation, not an employer).
+- Fixed a consistency-check launch-bounds bug that skipped up to a 15-pixel strip on
+  non-multiple-of-16 images; merged upstream with the matching regression-baseline update
+  (opencv_contrib #4165, opencv_extra #1392)
+- Implementing TMA/mbarrier-based path-aggregation kernels for Blackwell (sm_100+), bit-exact with
+  the legacy kernel; cuts horizontal-aggregation latency ~11% (RTX 5060 Laptop) to ~48% (RTX 5090)
+- Reduces end-to-end pipeline latency up to 5.1% on a rented RTX 5090; open for review
+  (opencv_contrib #4169)
+- https://github.com/opencv/opencv_contrib/pull/4165
+- https://github.com/opencv/opencv_contrib/pull/4169
 
-## Languages
-- Ukrainian — native
-- English — fluent (IELTS 6.5), lived in english enviroments for 1 year already
-- Estonian — A1.1, actively studying
+### Piano music generation with a GPT-style Transformer (PyTorch)
+- GPT-style autoregressive Transformer decoder with causal multi-head Flash Attention, migrated
+  from an earlier LSTM baseline
+- 10–20M parameters, trained on 200 hours of piano MIDI (MAESTRO); notes encoded as pitch,
+  velocity, duration and position tokens
+- Richer harmony and more coherent structure than the earlier TensorFlow LSTM baseline
+- https://github.com/DmytroHilei/Music_generative_model
 
-## Technical skills
-- **Languages:** C++, CUDA, C, Python (NumPy, PyTorch, Matplotlib, openCV)
-- **ML:** transformer architectures (decoder-only GPT, DETR), RNNs, LSTMs, CNNs, ResNet, object detection, OCR pipelines
-- **HPC:** OpenMP, optimisation of classical CV algorithms, TMA, basic cutlas
-- **Tools:**  Git, LaTex
+### Physics-based simulation of wave propagation and heat transfer (C++ / OpenMP / CUDA)
+- Numerical PDE solvers using the finite difference method
+- OpenMP-parallelized grid computations (AMD Ryzen 9 AI HX 370)
+- ~20× over the CPU-only baseline via Bentley's-rules optimizations and memory-usage efficiency,
+  then a further ~11× porting kernels to CUDA (RTX 5060 Laptop GPU)
+- Correctness verified against analytical solutions of the PDE
+- https://github.com/DmytroHilei/2D_heat_diffusion_and_wave_propagation
 
-## Projects
+### Automated GitHub issue-discovery daemon — `issuewatch` (C11)
+- Single-threaded C11 daemon polling GitHub issues across watched repos via libcurl/HTTP2,
+  prefiltered with a hand-written Aho–Corasick keyword automaton
+- Batches surviving issues to an LLM (local Ollama or the Anthropic API) for relevance judging,
+  publishes a ranked self-updating board to a secret Gist with push notifications
+- Near-zero cost via ETag caching, incremental watermarking and batched LLM calls
+- https://github.com/DmytroHilei/Search_engine_to_find_opensource_issues
 
-### YOLO + CRNN/CTC License Plate OCR
-End-to-end pipeline: YOLO for plate detection, custom CRNN with CTC loss for text recognition. Trained on a custom-collected dataset of Estonian license plate crops. Shows full pipeline ownership from data to inference.
-- GitHub: https://github.com/DmytroHilei/YOLO_training_on_plates_and_customeOCR
+### Not on the site
+Older repos, kept public but cut from both the CV and the site to keep the signal tight:
+- License plate OCR (YOLO + CRNN/CTC) — https://github.com/DmytroHilei/YOLO_training_on_plates_and_customeOCR
+- Speech recognition on Raspberry Pi 5 — https://github.com/DmytroHilei/Speech_Recognition_on_rasberry_pi_5
+- SmartBinaryClock (embedded C++) — https://github.com/DmytroHilei/SmartBinaryClock
 
-### 2D Heat Diffusion & Wave Propagation Simulation
-Physics-based PDE simulation parallelized with OpenMP using Bentley optimization rules. Python for visualization. Starting point for further CUDA acceleration work.
-- GitHub: https://github.com/DmytroHilei/2D_heat_diffusion_and_wave_propagation
+## Achievements
 
-### OpenCV StereoSGM CUDA Optimization (in progress)
-Optimizing OpenCV's Semi-Global Matching stereo vision pipeline for NVIDIA Blackwell architecture (sm_120, RTX 5060). Pipeline stages: Census Transform → Path Aggregation → WTA → Median Filter → LR Check. Techniques: `__ldg` cache hints, warp shuffles, vectorized loads, TMA async prefetch. PR to opencv/opencv pending.
-- GitHub: https://github.com/DmytroHilei/opencv
+### Olympiads (each links to official results)
+- Silver Medal — IOAA 2025 — https://ioaa2025.in/wp-content/uploads/2025/12/IOAA2025-Final-Result.pdf
+- Bronze Medal — IOAA 2024 — https://ioaa2024.on.br/assets/pdf/Final_Scores/IOAA%202024%20Final%20scores.pdf
+- Silver Medal — IOAA Junior 2023 — https://www.uoi.ua/en/data/contests/ioaajr/2023/results
+- First-stage diplomas — All-Ukrainian Olympiads on Astronomy and Astrophysics
+  - 2024 — https://www.uoi.ua/en/data/contests/uao/2024/results/11 ·
+    KNU https://space.univ.kiev.ua/wp-content/uploads/2024/04/result2024.pdf
+  - 2025 — https://www.uoi.ua/en/data/contests/uao/2025/results/11 ·
+    KNU https://space.univ.kiev.ua/wp-content/uploads/2025/04/result2025.pdf
 
-### GPT Music Transformer (in progress)
-Rewriting an LSTM music generation model into a decoder-only Transformer trained on the Maestro dataset using REMI tokenization. ~20M parameters (6 layers, 8 heads, 512 embedding dim, 1024 context). Training on rented H100 via vast.ai.
+Three consecutive years of IOAA medals — sustained depth, not a one-off.
 
-### SmartBinaryClock
-Embedded C++ project: displays time in binary and military formats alongside temperature, humidity, and voltage readings.
-- GitHub: https://github.com/DmytroHilei/SmartBinaryClock
+### Other activities
+- Member of the Ukrainian scout organization Plast for 8 years; youth leadership and
+  educational/physical activities
+- Jury member for the Ukrainian National Olympiad in Astronomy and Astrophysics
+- Enjoy playing the guitar
 
-## Volunteering
-- Jury member and lecturer at Ukrainian Astronomy Olympiads (while still competing myself)
-- Plast member for 7 years (Ukrainian national scouting organization)
+## Skills
+- **Programming:** Python, C/C++, LLVM IR, PyTorch, TensorFlow, NumPy, CUDA
+- **Machine learning:** deep learning, computer vision, sequence models (RNN, LSTM), transformers,
+  detection models
+- **Computer vision:** YOLO object detection, OpenCV, FasterRCNN, CNN feature extraction, ViT
+- **Tools:** Git, LaTeX, Linux (CLI), Raspberry Pi 5
+- **Mathematics & physics:** calculus, probability & statistics, astrophysics, finite difference
+  methods for PDEs, numerical simulation, stencil computations
+- **Languages:** Ukrainian (native), Polish (B1), English (B2+, IELTS 6.5)
 
-## Links
+## Contact / links
+- Email: dmytrohilei@gmail.com
 - GitHub: https://github.com/DmytroHilei
 - LinkedIn: https://www.linkedin.com/in/dmytro-hilei-1092b3287/
+- Deployed at: https://dmytro-dev-nine.vercel.app
 
-## Design direction (for Claude Code)
-Aesthetic target: karpathy.ai — minimal, text-first, no hero animations, feels like a page a serious engineer built for themselves. Not a template.
-- Astro framework, static output
-- Dark or near-white theme, not gray-gradient
-- No card grids, no badge pills, no "My Projects" section headers
-- Projects listed as clean lines with brief descriptions and links
-- Typography does the work, not decoration
+Phone is on the CV only — deliberately not on the public site.
+
+Header photo: `public/profile.jpg`, an 88px circular avatar. Generated from `Profile_picture.jpg`
+(the full-resolution iPhone original, kept at the repo root) with:
+
+```sh
+convert Profile_picture.jpg -crop 2400x2400+1250+0 +repage -resize 400x400 \
+  -strip -quality 82 -interlace Plane public/profile.jpg
+```
+
+`-strip` matters — the original carries EXIF GPS coordinates.
+
+## Design direction
+The site reads as a document, close to `CV.pdf`: section headings with a hairline rule,
+right-aligned dates and stacks, tight bullet lists. Single column, text-first.
+- Astro, static output
+- Near-white theme, typography does the work
+- No card grids, no badge pills, no hero, no animations
+- Every factual claim that can be sourced links to its source
