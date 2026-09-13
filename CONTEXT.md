@@ -97,13 +97,18 @@ Three consecutive years of IOAA medals — sustained depth, not a one-off.
 
 Phone is on the CV only — deliberately not on the public site.
 
-Header photo: `public/profile.jpg`, an 88px circular avatar. Generated from `Profile_picture.jpg`
-(the full-resolution iPhone original, kept at the repo root) with:
+Header photo: `public/profile.jpg`, a 120px circular avatar on the left of the header. Generated
+from `Profile_picture.jpg` (the full-resolution iPhone original, kept at the repo root) with the
+largest square the source allows — full 3024px height, centred on the face, so the shoulders stay
+in frame:
 
 ```sh
-convert Profile_picture.jpg -crop 2400x2400+1250+0 +repage -resize 400x400 \
-  -strip -quality 82 -interlace Plane public/profile.jpg
+convert Profile_picture.jpg -crop 3024x3024+938+0 +repage -resize 480x480 \
+  -unsharp 0x0.75+0.75+0.008 -strip -quality 82 -interlace Plane public/profile.jpg
 ```
+
+480px served for a 120px slot covers 4x displays; the unsharp pass restores the detail lost in a
+6:1 downsample.
 
 `-strip` matters — the original carries EXIF GPS coordinates.
 
