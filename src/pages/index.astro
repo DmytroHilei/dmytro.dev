@@ -9,23 +9,25 @@ import Layout from '../layouts/Layout.astro';
       <img src="/profile.jpg" alt="Dmytro Hilei" class="avatar" width="120" height="120" />
       <div class="header-text">
         <h1>Dmytro Hilei</h1>
+        <p class="tagline">ML / HPC engineering student at TalTech</p>
         <p class="meta">Tallinn, Estonia</p>
         <p class="meta">
           <a href="mailto:dmytrohilei@gmail.com">dmytrohilei@gmail.com</a>
           <span class="sep">·</span>
-          <a href="https://github.com/DmytroHilei" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/DmytroHilei">GitHub</a>
           <span class="sep">·</span>
-          <a href="https://www.linkedin.com/in/dmytro-hilei-1092b3287/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/dmytro-hilei-1092b3287/">LinkedIn</a>
         </p>
       </div>
     </header>
 
     <section>
       <p class="profile">
-        I work on high-performance computing and machine learning — computer vision, generative
-        language models, and C++/CUDA physical simulations and stencil parallel computing. Most of
-        what I build uses PyTorch, TensorFlow, OpenMP and CUDA; right now I'm working through Devito,
-        CuPy, MSL, AMD HIP and tinygrad.
+        I work on high-performance computing and machine learning. Right now I'm optimizing CUDA
+        stereo-matching kernels for Blackwell GPUs in OpenCV
+        (<a href="https://github.com/opencv/opencv_contrib/pull/4165">one fix merged upstream</a>)
+        and working through Devito, CuPy, MSL, AMD HIP and tinygrad. I'm also interested in computer
+        vision, generative language models, and C++/CUDA physical simulations.
       </p>
     </section>
 
@@ -42,7 +44,7 @@ import Layout from '../layouts/Layout.astro';
           <li>
             Fixed a consistency-check launch-bounds bug that skipped up to a 15-pixel strip on
             non-multiple-of-16 images, merged upstream together with the matching regression-baseline
-            update (<a href="https://github.com/opencv/opencv_contrib/pull/4165" target="_blank" rel="noopener">opencv_contrib #4165</a>,
+            update (<a href="https://github.com/opencv/opencv_contrib/pull/4165">opencv_contrib #4165</a>,
             opencv_extra #1392).
           </li>
           <li>
@@ -53,7 +55,7 @@ import Layout from '../layouts/Layout.astro';
           <li>
             Reduces end-to-end pipeline latency by up to 5.1% on a rented RTX 5090; open for review,
             awaiting maintainer feedback
-            (<a href="https://github.com/opencv/opencv_contrib/pull/4169" target="_blank" rel="noopener">opencv_contrib #4169</a>).
+            (<a href="https://github.com/opencv/opencv_contrib/pull/4169">opencv_contrib #4169</a>).
           </li>
         </ul>
       </article>
@@ -78,7 +80,7 @@ import Layout from '../layouts/Layout.astro';
           </li>
         </ul>
         <p class="links">
-          <a href="https://github.com/DmytroHilei/Music_generative_model" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/DmytroHilei/Music_generative_model">GitHub</a>
         </p>
       </article>
 
@@ -98,7 +100,7 @@ import Layout from '../layouts/Layout.astro';
           <li>Verified correctness against analytical solutions of the PDE.</li>
         </ul>
         <p class="links">
-          <a href="https://github.com/DmytroHilei/2D_heat_diffusion_and_wave_propagation" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/DmytroHilei/2D_heat_diffusion_and_wave_propagation">GitHub</a>
         </p>
       </article>
 
@@ -120,7 +122,7 @@ import Layout from '../layouts/Layout.astro';
           <li>Kept cost near zero via ETag caching, incremental watermarking and batched LLM calls.</li>
         </ul>
         <p class="links">
-          <a href="https://github.com/DmytroHilei/Search_engine_to_find_opensource_issues" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/DmytroHilei/Search_engine_to_find_opensource_issues">GitHub</a>
         </p>
       </article>
     </section>
@@ -152,24 +154,24 @@ import Layout from '../layouts/Layout.astro';
       <ul class="bullets">
         <li>
           <strong>Silver Medal</strong> — International Olympiad on Astronomy and Astrophysics (IOAA),
-          <a href="https://ioaa2025.in/wp-content/uploads/2025/12/IOAA2025-Final-Result.pdf" target="_blank" rel="noopener">2025</a>
+          <a href="https://ioaa2025.in/wp-content/uploads/2025/12/IOAA2025-Final-Result.pdf">2025</a>
         </li>
         <li>
           <strong>Bronze Medal</strong> — International Olympiad on Astronomy and Astrophysics (IOAA),
-          <a href="https://ioaa2024.on.br/assets/pdf/Final_Scores/IOAA%202024%20Final%20scores.pdf" target="_blank" rel="noopener">2024</a>
+          <a href="https://ioaa2024.on.br/assets/pdf/Final_Scores/IOAA%202024%20Final%20scores.pdf">2024</a>
         </li>
         <li>
           <strong>Silver Medal</strong> — International Olympiad on Astronomy and Astrophysics Junior
           (IOAA Jr),
-          <a href="https://www.uoi.ua/en/data/contests/ioaajr/2023/results" target="_blank" rel="noopener">2023</a>
+          <a href="https://www.uoi.ua/en/data/contests/ioaajr/2023/results">2023</a>
         </li>
         <li>
           <strong>First-stage diplomas</strong> — All-Ukrainian Olympiads on Astronomy and Astrophysics,
-          <a href="https://www.uoi.ua/en/data/contests/uao/2024/results/11" target="_blank" rel="noopener">2024</a>
-          (<a href="https://space.univ.kiev.ua/wp-content/uploads/2024/04/result2024.pdf" target="_blank" rel="noopener">KNU</a>)
+          <a href="https://www.uoi.ua/en/data/contests/uao/2024/results/11">2024</a>
+          (<a href="https://space.univ.kiev.ua/wp-content/uploads/2024/04/result2024.pdf">KNU</a>)
           and
-          <a href="https://www.uoi.ua/en/data/contests/uao/2025/results/11" target="_blank" rel="noopener">2025</a>
-          (<a href="https://space.univ.kiev.ua/wp-content/uploads/2025/04/result2025.pdf" target="_blank" rel="noopener">KNU</a>)
+          <a href="https://www.uoi.ua/en/data/contests/uao/2025/results/11">2025</a>
+          (<a href="https://space.univ.kiev.ua/wp-content/uploads/2025/04/result2025.pdf">KNU</a>)
         </li>
       </ul>
 
@@ -177,7 +179,7 @@ import Layout from '../layouts/Layout.astro';
       <ul class="bullets">
         <li>
           Member of the Ukrainian scout organization
-          <a href="https://plast.org.ua/" target="_blank" rel="noopener">Plast</a> for 8 years;
+          <a href="https://plast.org.ua/">Plast</a> for 8 years;
           involved in youth leadership and educational/physical activities.
         </li>
         <li>Jury member for the Ukrainian National Olympiad in Astronomy and Astrophysics.</li>
@@ -191,11 +193,8 @@ import Layout from '../layouts/Layout.astro';
         <dt>Programming</dt>
         <dd>Python · C/C++ · LLVM IR · PyTorch · TensorFlow · NumPy · CUDA</dd>
 
-        <dt>Machine learning</dt>
-        <dd>Deep learning · computer vision · sequence models (RNN, LSTM) · transformers · detection models</dd>
-
-        <dt>Computer vision</dt>
-        <dd>YOLO object detection · OpenCV · FasterRCNN · CNN feature extraction · Vision Transformers (ViT)</dd>
+        <dt>ML &amp; vision</dt>
+        <dd>Deep learning · transformers · sequence models (RNN, LSTM) · YOLO · FasterRCNN · CNN feature extraction · Vision Transformers (ViT) · OpenCV</dd>
 
         <dt>Tools</dt>
         <dd>Git · LaTeX · Linux (CLI) · Raspberry Pi 5</dd>
@@ -238,7 +237,7 @@ import Layout from '../layouts/Layout.astro';
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    background: #f0f0f0;
+    background: var(--avatar-bg);
   }
 
   h1 {
@@ -246,28 +245,34 @@ import Layout from '../layouts/Layout.astro';
     font-family: var(--font-mono);
     font-size: 1.3rem;
     font-weight: 600;
-    color: #0a0a0a;
+    color: var(--strong);
     letter-spacing: -0.02em;
+  }
+
+  .tagline {
+    margin: 0 0 0.35rem;
+    color: var(--muted);
+    font-size: 0.9rem;
   }
 
   .meta {
     margin: 0;
-    color: #6a6a6a;
+    color: var(--muted);
     font-size: 0.875rem;
   }
 
   .meta a {
-    color: #3a3a3a;
+    color: var(--text);
   }
 
   .sep {
-    color: #c4c4c4;
+    color: var(--sep);
     padding: 0 0.15em;
   }
 
   .profile {
     margin: 0;
-    color: #2a2a2a;
+    color: var(--text);
     font-size: 0.95rem;
   }
 
@@ -275,11 +280,11 @@ import Layout from '../layouts/Layout.astro';
   h2 {
     margin: 0 0 1.1rem;
     padding-bottom: 0.35rem;
-    border-bottom: 1px solid #e4e4e4;
+    border-bottom: 1px solid var(--rule);
     font-family: var(--font-mono);
     font-size: 1rem;
     font-weight: 600;
-    color: #0a0a0a;
+    color: var(--strong);
     letter-spacing: -0.01em;
   }
 
@@ -287,7 +292,7 @@ import Layout from '../layouts/Layout.astro';
     margin: 0 0 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
-    color: #0a0a0a;
+    color: var(--strong);
   }
 
   h4 + .bullets + h4 {
@@ -310,13 +315,13 @@ import Layout from '../layouts/Layout.astro';
     margin: 0;
     font-size: 0.925rem;
     font-weight: 600;
-    color: #0a0a0a;
+    color: var(--strong);
     line-height: 1.5;
   }
 
   .aside {
     flex-shrink: 0;
-    color: #888;
+    color: var(--faint);
     font-family: var(--font-mono);
     font-size: 0.78rem;
     white-space: nowrap;
@@ -325,7 +330,7 @@ import Layout from '../layouts/Layout.astro';
 
   .entry-body {
     margin: 0.15rem 0 0;
-    color: #3a3a3a;
+    color: var(--text);
     font-size: 0.875rem;
   }
 
@@ -340,7 +345,7 @@ import Layout from '../layouts/Layout.astro';
   .bullets li {
     position: relative;
     padding-left: 1rem;
-    color: #3a3a3a;
+    color: var(--text);
     font-size: 0.875rem;
     line-height: 1.55;
   }
@@ -349,11 +354,11 @@ import Layout from '../layouts/Layout.astro';
     content: '·';
     position: absolute;
     left: 0.25rem;
-    color: #aaa;
+    color: var(--dim);
   }
 
   .bullets strong {
-    color: #0a0a0a;
+    color: var(--strong);
     font-weight: 600;
   }
 
@@ -365,11 +370,11 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .links a {
-    color: #6a6a6a;
+    color: var(--muted);
   }
 
   .links a:hover {
-    color: #0a0a0a;
+    color: var(--strong);
   }
 
   /* Skills */
@@ -382,22 +387,22 @@ import Layout from '../layouts/Layout.astro';
   }
 
   dt {
-    color: #888;
+    color: var(--faint);
     font-size: 0.82rem;
     padding-top: 0.08rem;
   }
 
   dd {
     margin: 0;
-    color: #3a3a3a;
+    color: var(--text);
     font-size: 0.875rem;
   }
 
   code {
     font-family: var(--font-mono);
     font-size: 0.85em;
-    color: #2a2a2a;
-    background: #f4f4f4;
+    color: var(--text);
+    background: var(--code-bg);
     padding: 0.05em 0.3em;
     border-radius: 3px;
   }
