@@ -29,12 +29,18 @@ Mentored by an R&D engineer at SoftServe (mentor's affiliation, not an employer)
 - https://github.com/opencv/opencv_contrib/pull/4165
 - https://github.com/opencv/opencv_contrib/pull/4169
 
-### Piano music generation with a GPT-style Transformer (PyTorch)
-- GPT-style autoregressive Transformer decoder with causal multi-head Flash Attention, migrated
-  from an earlier LSTM baseline
-- 10–20M parameters, trained on 200 hours of piano MIDI (MAESTRO); notes encoded as pitch,
-  velocity, duration and position tokens
-- Richer harmony and more coherent structure than the earlier TensorFlow LSTM baseline
+### Symbolic music generation with a 462M-parameter Transformer (PyTorch)
+- Decoder-only autoregressive Transformer (28 layers, d=1152) trained from scratch on multi-instrument
+  MIDI (GigaMIDI, Aria-MIDI, Discover); 8.3B notes seen on a single rented RTX 5090. Grew out of a
+  10–20M piano model on MAESTRO and an earlier LSTM baseline
+- One token per note (pitch, velocity, duration, delta-time on a 20 ms grid), predicted by cascaded
+  heads (delta -> pitch -> duration -> velocity): loss 9.412 vs 9.824 independent (6M model, 1 seed)
+- RMSNorm + SwiGLU + QK-norm + RoPE block vs nanoGPT block: val CE 3.137 +- 0.013 vs 3.886 +- 0.075
+  (42M, 3 seeds); Muon, fp8 + torch.compile; instrument/density conditioning is free on loss
+  (1.714 vs 1.716); auxiliary future heads did not help
+- Final held-out CE on clean GigaMIDI: 1.679 per note (pitch 0.367, velocity 0.497, duration 0.644,
+  delta 0.170), vs 2.242 for the earlier 108M pilot
+- Now fine-tuning towards Ukrainian pop-rock piano arrangements (Demucs + basic-pitch reduction)
 - https://github.com/DmytroHilei/Music_generative_model
 
 ### Physics-based simulation of wave propagation and heat transfer (C++ / OpenMP / CUDA)

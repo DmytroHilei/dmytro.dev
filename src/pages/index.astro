@@ -62,21 +62,33 @@ import Layout from '../layouts/Layout.astro';
 
       <article class="entry">
         <div class="entry-head">
-          <h3>Piano music generation with a GPT-style Transformer</h3>
+          <h3>Symbolic music generation with a 462M-parameter Transformer</h3>
           <span class="aside">PyTorch</span>
         </div>
         <ul class="bullets">
           <li>
-            GPT-style autoregressive Transformer decoder with causal multi-head Flash Attention for
-            symbolic music generation, migrated from an earlier LSTM baseline.
+            Decoder-only autoregressive Transformer (28 layers, d=1152) trained from scratch on
+            multi-instrument MIDI (GigaMIDI, Aria-MIDI, Discover), 8.3B notes seen on a single rented
+            RTX 5090. Grew out of a 10–20M piano model on MAESTRO and an earlier LSTM baseline.
           </li>
           <li>
-            Trained a 10–20M parameter model on 200 hours of piano MIDI (MAESTRO), encoding notes as
-            pitch, velocity, duration and position tokens.
+            One token per note (pitch, velocity, duration, delta-time on a 20 ms grid), predicted by
+            cascaded heads (delta → pitch → duration → velocity) instead of independent ones:
+            loss 9.412 vs 9.824 on a 6M model, single seed.
           </li>
           <li>
-            Produces visibly richer harmony and more coherent structure than the earlier TensorFlow
-            LSTM baseline.
+            RMSNorm + SwiGLU + QK-norm block with RoPE beats the nanoGPT block (val CE 3.137 ± 0.013 vs
+            3.886 ± 0.075 at 42M, 3 seeds); trained with Muon and fp8 + <code>torch.compile</code>.
+            Conditioning on instrument set and note density costs nothing in loss (1.714 vs 1.716).
+            Auxiliary future-prediction heads did not help.
+          </li>
+          <li>
+            Final held-out cross-entropy on clean GigaMIDI: 1.679 per note (pitch 0.367, velocity
+            0.497, duration 0.644, delta 0.170), down from 2.242 for the earlier 108M pilot.
+          </li>
+          <li>
+            Now fine-tuning towards Ukrainian pop-rock piano arrangements, using a Demucs +
+            basic-pitch pipeline to reduce band recordings to piano.
           </li>
         </ul>
         <p class="links">
